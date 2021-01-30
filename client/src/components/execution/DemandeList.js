@@ -6,14 +6,16 @@ export const DemandeList = ({dems, onDelete}) => {
     <table className="table table-hover">
       <thead>
       <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Adresse</th>
+        <th>N°DEMANDE</th>
+        <th>OBJET</th>
+        <th>DESTINATION</th>
+        <th>NATURE</th>
+        <th>MONTANT</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
-      {dems.map(dem => DemandeListRow({dem}))}
+       {dems.map((dem) => DemandeListRow({dem, onDelete}))} 
       </tbody>
     </table>
   )

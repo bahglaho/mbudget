@@ -19,6 +19,7 @@ import Accueil from './pages/Accueil';
 import Etablissement from './pages/Etablissement';
 import Tiers from './pages/Tiers';
 import Demande from './pages/module/execution/Demande';
+import EditDemande from './pages/module/execution/EditDemande';
 
 class App extends Component {
 
@@ -64,6 +65,7 @@ class App extends Component {
               <Route path="/etablissement"  render={(props)=><Etablissement /> } />
               <Route path="/tiers"  component={Tiers} />
               <Route path="/execution/demande"  component={Demande} />
+              <Route path="/execution/newDemande"  component={EditDemande} />
           </Switch>                   
       </BrowserRouter>
       </div>

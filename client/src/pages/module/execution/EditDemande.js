@@ -1,49 +1,62 @@
 import React, { Component } from 'react';
-import {getToken,getData,postData} from '../../services/Fecthing';
+import {getToken,getData,postData} from '../../../services/Fecthing';
 import { connect } from 'react-redux';
-import { getDemande, addDemande} from '../../stores/actions';
-import { Link, NavLink, Redirect } from 'react-router-dom';
-import Menu from '../Menu/Menu1';
-import SideBar from '../../Menu/Sidebar1';
+import { getDemande, delDemande} from '../../../stores/actions';
+import { NavLink, Link, Redirect } from 'react-router-dom';
+import Menu from '../../../Menu/Menu1';
+import SideBar from '../../../Menu/Sidebar1';
 
-class Demande extends Component {
+class EditDemande extends Component {
   constructor(props) {
     super(props);
    // this.state = {}
   }
 
-  componentDidMount() {
+  state = {
+    dems: []
     
-  }
+}
 
-  insertData = async (endpoint,data) => {
-    let token = this.props.user.token
+componentDidMount = () => {
+    let endpoint="/api/tier";
+    this.getDemande()
      
-    //window.alert("=========resp=========="+this.props.isLoggedIn);
-      postData(token, endpoint,data).then((resp)=>{
-        //window.alert('response: '+JSON.stringify(resp))
+        // window.alert('data: '+JSON.stringify(initialData))
+    }
+  
+    
+ 
+    getDemande = async () => {
+    let token = this.props.user.token
+    let endpoint="/api/tier";
+      getData(token, endpoint).then((resp)=>{
+          //let data = JSON.stringify(resp.data)
+        //window.alert('response: '+resp.data)
+        this.setState({
+          dems : resp.data
+        })
+        
       })
       .catch((err)=> window.alert('error Demande: '+err));
-    
 
-    window.alert("Demande : "+ data);
 
   }
   
-  addDemande = (e) => {
-      e.preventDefault();
-       let newDemande = {
-        id: '',
-        tierAdr: e.target.tierAdr.value,
-        tierTip: e.target.tierTip.value,
-        tierTel: e.target.tierTel.value,
-        tierLib: e.target.tierLib.value
-      } 
-     // window.alert("JSON.stringify(newEtablissement) : "+ JSON.stringify(newEtablissement));
-      let endpoint="/api/tier";
-      this.insertData(endpoint,JSON.stringify(newDemande));
-      
+  delDemande = async () => {
+    let token = this.props.user.token
+    let endpoint="/api/tier";
+      getData(token, endpoint).then((resp)=>{
+          let data = [] 
+          data = JSON.stringify(resp.data)
+        window.alert('response: '+JSON.stringify(resp))
+          return data
+        
+      })
+      .catch((err)=> window.alert('error Demande: '+err));
+
+
   }
+  
 
 
 
@@ -54,19 +67,19 @@ class Demande extends Component {
     return (
       <div>
      <Menu />
-     <SideBar/>
+     <SideBar />
       <div className="content-wrapper">
 
         <div className="content-header">
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0 text-dark">Demande</h1>
+                <h1 className="m-0 text-dark">Nouvelle demande</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item"><NavLink to="/">Accueil</NavLink></li>
-                  <li className="breadcrumb-item active">Demande</li>
+                  <li className="breadcrumb-item active">Demandes / Nouvelle demande</li>
                 </ol>
               </div>
             </div>
@@ -81,50 +94,24 @@ class Demande extends Component {
 
                 <div className="card card-primary">
                   <div className="card-header">
-                    <h3 className="card-title">Tier</h3>
+                    <h3 className="card-title">Ecran de saisie d'une demande d'engagement </h3>
                   </div>
 
                   <div className="card-body">
-                    <form id="addDemande" onSubmit={this.addDemande.bind(this)}>
-                      <div className="row">
-                        <div className="col-sm-6">
-
-                          <div className="form-group">
-                            <label>Nom du tier</label>
-                            <input id="tierLib" type="text" className="form-control" placeholder="Saisir le nom du tier ..." />
+                    <div>
+                        <div className="row">
+                                <div className="col-md-6">
+                                    {/* <SearchInput
+                                        value={params.q}
+                                        onSearch={this.handleSearch}
+                                        placeholder="Title search ..."
+                                    /> */}
+                                </div>
+                                <div className="col-md-6 text-right">
+                                    <Link to="/execution/newDemande" className="btn btn-primary"><i class="far fa-plus-square"></i> Suivant</Link>
+                                </div>
                           </div>
                         </div>
-                        <div className="col-sm-6">
-                          <div className="form-group">
-                            <label>Type de tier</label>
-                            <input id="tierTip" type="text" className="form-control" placeholder="Saisir le type ..." />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-sm-6">
-
-                          <div className="form-group">
-                            <label>Adresse postal</label>
-                            <input id="tierAdr" type="text" className="form-control" placeholder="Saisir l'adresse postal ..." />
-                          </div>
-                        </div>
-                        <div className="col-sm-6">
-                          <div className="form-group">
-                            <label>Téléphone</label>
-                            <input id="tierTel" type="text" className="form-control" placeholder="Saisir le téléphone ..." />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-sm-12">
-                          <button type="submit" className="btn btn-primary">Enregistrer</button>
-                        </div>
-                      </div>
-
-                    </form>
                   </div>
 
                 </div>
@@ -144,9 +131,12 @@ class Demande extends Component {
 //joindre les reducers au composant
 const mapDispatchToProps = (dispatch) => {
     return {
-        addDemande: (Demande) =>{
-          dispatch(addDemande(Demande))
+        delDemande: (demande) =>{
+          dispatch(delDemande(demande))
       },  
+      getDemande: () =>{
+        dispatch(getDemande())
+    },  
     }
   }
   
@@ -158,5 +148,5 @@ const mapStateToProps = (state) => {
   }
 }
   
- export default connect(mapStateToProps, mapDispatchToProps)(Demande);
+ export default connect(mapStateToProps, mapDispatchToProps)(EditDemande);
  

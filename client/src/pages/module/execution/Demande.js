@@ -5,7 +5,7 @@ import { getDemande, delDemande} from '../../../stores/actions';
 import { NavLink, Link, Redirect } from 'react-router-dom';
 import Menu from '../../../Menu/Menu1';
 import SideBar from '../../../Menu/Sidebar1';
-import DemandeList from '../../../components/execution/DemandeList';
+import { DemandeList } from '../../../components/execution/DemandeList';
 
 class Demande extends Component {
   constructor(props) {
@@ -20,10 +20,9 @@ class Demande extends Component {
 
 componentDidMount = () => {
     let endpoint="/api/tier";
-    let initialData = this.getDemande()
-      this.setState({
-        dems : initialData
-      })
+    this.getDemande()
+     
+        // window.alert('data: '+JSON.stringify(initialData))
     }
   
     
@@ -32,7 +31,24 @@ componentDidMount = () => {
     let token = this.props.user.token
     let endpoint="/api/tier";
       getData(token, endpoint).then((resp)=>{
-          let data = JSON.stringify(resp.data)
+          //let data = JSON.stringify(resp.data)
+        //window.alert('response: '+resp.data)
+        this.setState({
+          dems : resp.data
+        })
+        
+      })
+      .catch((err)=> window.alert('error Demande: '+err));
+
+
+  }
+  
+  delDemande = async () => {
+    let token = this.props.user.token
+    let endpoint="/api/tier";
+      getData(token, endpoint).then((resp)=>{
+          let data = [] 
+          data = JSON.stringify(resp.data)
         window.alert('response: '+JSON.stringify(resp))
           return data
         
@@ -64,7 +80,7 @@ componentDidMount = () => {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item"><NavLink to="/">Accueil</NavLink></li>
-                  <li className="breadcrumb-item active">Demande</li>
+                  <li className="breadcrumb-item active">Demandes</li>
                 </ol>
               </div>
             </div>
@@ -79,7 +95,7 @@ componentDidMount = () => {
 
                 <div className="card card-primary">
                   <div className="card-header">
-                    <h3 className="card-title">Tier</h3>
+                    <h3 className="card-title">Liste des demandes RS </h3>
                   </div>
 
                   <div className="card-body">
@@ -93,10 +109,10 @@ componentDidMount = () => {
                                     /> */}
                                 </div>
                                 <div className="col-md-6 text-right">
-                                    <Link to="/posts/new" className="btn btn-primary">New Post</Link>
+                                    <Link to="/execution/newDemande" className="btn btn-primary"><i class="far fa-plus-square"></i> Nouvelle demande</Link>
                                 </div>
-                            </div>
-                           
+                          </div>
+                         <DemandeList dems={this.state.dems} onDelete={this.delDemande}/> 
                         </div>
                   </div>
 
@@ -134,5 +150,5 @@ const mapStateToProps = (state) => {
   }
 }
   
- export default connect(mapStateToProps, mapDispatchToProps)(Demande,);
+ export default connect(mapStateToProps, mapDispatchToProps)(Demande);
  
