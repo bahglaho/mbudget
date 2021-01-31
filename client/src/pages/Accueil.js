@@ -11,9 +11,7 @@ class Accueil extends Component {
    // this.state = {...this.props.state}
   }
 
-  componentDidMount() {
-    
-  }
+ 
 
   render() {
     let isLoggedIn = this.props.isLoggedIn;
@@ -48,8 +46,8 @@ class Accueil extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    isLoggedIn: state.isLoggedIn
+    user: state.auth.user,
+    isLoggedIn: state.auth.isLoggedIn
   }
 }
 

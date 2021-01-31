@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { MenuSource } from '../teleporters/Menu'
 import { connect } from 'react-redux'
-import {loggedOut} from '../stores/actions'
+import {loggedOut} from '../stores/actions/auth'
 
-class Menu1 extends Component {
+const Menu1 = (props) => {
   
-    render() {
+    const handleClick = () => {
+       // e.preventDefault()
+       //window.alert('------Logout: -----')
+        props.loggedOut()
+        
+    }
         return (
             <MenuSource>
                 <nav className="main-header navbar navbar-expand navbar-lightblue navbar-dark">
@@ -128,7 +133,7 @@ class Menu1 extends Component {
                         </li>
                         
                         <li className="nav-item">
-                            <NavLink to="/" className="nav-link" data-widget="control-sidebar" data-slide="true" role="button"><i
+                            <NavLink to="/" onClick={handleClick} className="nav-link" data-widget="control-sidebar" data-slide="true" role="button"><i
                                 className="fas fa-sign-out-large"></i> Déconnexion</NavLink>
                         </li> 
                     </ul>
@@ -136,6 +141,22 @@ class Menu1 extends Component {
             </MenuSource>
         );
     }
-}
 
-export default Menu1;
+
+//joindre les reducers au composant
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loggedOut: () =>{
+        dispatch(loggedOut())
+    },  
+    }
+  }
+  
+//Lier l'etat global aux props du Component
+const mapStateToProps = (state) => {
+  return {
+      user: state.user
+  }
+}
+  
+ export default connect(mapStateToProps, mapDispatchToProps)(Menu1);

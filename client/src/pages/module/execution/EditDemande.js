@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getToken,getData,postData} from '../../../services/Fecthing';
 import { connect } from 'react-redux';
-import { getDemande, delDemande} from '../../../stores/actions';
+import { getDemande, delDemande} from '../../../stores/actions/execution';
 import { NavLink, Link, Redirect } from 'react-router-dom';
 import Menu from '../../../Menu/Menu1';
 import SideBar from '../../../Menu/Sidebar1';
@@ -63,7 +63,7 @@ componentDidMount = () => {
   render() {
     let isLoggedIn = this.props.isLoggedIn;
 
-    if (!isLoggedIn) { return <Redirect to='/' /> }
+    // if (!isLoggedIn) { return <Redirect to='/' /> }
     return (
       <div>
      <Menu />

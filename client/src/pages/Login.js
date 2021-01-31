@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import {getToken,getData,postData} from '../services/Fecthing';
 import { connect } from 'react-redux'
-import {addUser,loggedIn} from '../stores/actions'
+import * as actions from '../stores/actions/auth'
 
 
 class Login extends Component {
@@ -29,12 +29,13 @@ class Login extends Component {
         getToken(JSON.stringify(user)).then((resp)=>{
            // let token=resp.data.access_token;
             user.token = resp.data.access_token;
+            user.password = ''
            // window.alert("=========resp=========="+user.token);
            // window.alert("=========user=========="+user.username);
             //this.props.handleLogin()
             
-            this.props.addUser(user)
-            this.props.loggedIn()
+            //this.props.addUser(user)
+            this.props.loggedIn(user)
 
             
         })
@@ -131,20 +132,11 @@ class Login extends Component {
 //Lier l'etat global aux props du Component
 const mapStateToProps = (state) => {
     return {
-        user: state.user,
-        isLoggedIn: state.isLoggedIn
+        user: state.auth.user,
+        isLoggedIn: state.auth.isLoggedIn
     }
   }
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-        addUser: (user) =>{
-          dispatch(addUser(user))
-      },
-      loggedIn: () =>{
-        dispatch(loggedIn())
-      },
-    }
-  }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(Login);
+  
+  export default connect(mapStateToProps, actions)(Login);

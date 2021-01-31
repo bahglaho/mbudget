@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getToken,getData,postData} from '../services/Fecthing';
 import { connect } from 'react-redux';
-import { getTiers, addTiers} from '../stores/actions';
+import { getTiers, addTiers} from '../stores/actions/execution';
 import { Redirect } from 'react-router-dom';
 import Menu from '../Menu/Menu1';
 import SideBar from '../Menu/Sidebar1';

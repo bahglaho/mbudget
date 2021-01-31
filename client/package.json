@@ -11,7 +11,8 @@
     "react-scripts": "^1.1.1",
     "react-teleporter": "^2.1.1",
     "reactstrap": "^6.5.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

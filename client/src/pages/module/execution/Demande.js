@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getToken,getData,postData} from '../../../services/Fecthing';
 import { connect } from 'react-redux';
-import { getDemande, delDemande} from '../../../stores/actions';
+import * as actions from '../../../stores/actions/execution';
 import { NavLink, Link, Redirect } from 'react-router-dom';
 import Menu from '../../../Menu/Menu1';
 import SideBar from '../../../Menu/Sidebar1';
@@ -109,7 +109,7 @@ componentDidMount = () => {
                                     /> */}
                                 </div>
                                 <div className="col-md-6 text-right">
-                                    <Link to="/execution/newDemande" className="btn btn-primary"><i class="far fa-plus-square"></i> Nouvelle demande</Link>
+                                    <Link to="/execution/newDemande" className="btn btn-primary"><i className="far fa-plus-square"></i> Nouvelle demande</Link>
                                 </div>
                           </div>
                          <DemandeList dems={this.state.dems} onDelete={this.delDemande}/> 
@@ -130,25 +130,15 @@ componentDidMount = () => {
     )
   }
 }
-//joindre les reducers au composant
-const mapDispatchToProps = (dispatch) => {
-    return {
-        delDemande: (demande) =>{
-          dispatch(delDemande(demande))
-      },  
-      getDemande: () =>{
-        dispatch(getDemande())
-    },  
-    }
-  }
+
   
 //Lier l'etat global aux props du Component
 const mapStateToProps = (state) => {
   return {
-      user: state.user,
-      isLoggedIn: state.isLoggedIn
+      user: state.auth.user,
+      isLoggedIn: state.auth.isLoggedIn
   }
 }
   
- export default connect(mapStateToProps, mapDispatchToProps)(Demande);
+ export default connect(mapStateToProps, actions)(Demande);
  
