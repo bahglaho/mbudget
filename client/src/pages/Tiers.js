@@ -48,13 +48,10 @@ class Tiers extends Component {
 
 
   render() {
-    let isLoggedIn = this.props.isLoggedIn;
-
-    if (!isLoggedIn) { return <Redirect to='/' /> }
+   
     return (
-      <div>
-     <Menu />
-     <SideBar/>
+     
+     
       <div className="content-wrapper">
 
         <div className="content-header">
@@ -137,7 +134,7 @@ class Tiers extends Component {
         </div>
 
       </div>
-</div>
+
     )
   }
 }

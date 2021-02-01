@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import Menu from '../Menu/Menu1'
-import SideBar from '../Menu/Sidebar1'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
 
 class Accueil extends Component {
 
@@ -14,15 +11,10 @@ class Accueil extends Component {
  
 
   render() {
-    let isLoggedIn = this.props.isLoggedIn;
-    //window.alert("=========isLoggedIn accueil=========="+isLoggedIn);
-    //window.alert("=========user view=========="+this.props.user);
-    if (!isLoggedIn) { return <Redirect to='/' /> }
+
     return (
-      <div>
-        <Menu />
-        <SideBar />
-        <div className="content-wrapper">
+      <div className="content-wrapper">
+       
           <div className="content-header">
             <div className="container-fluid">
               <div className="row mb-2">
@@ -38,7 +30,6 @@ class Accueil extends Component {
             </div>
           </div>
 
-        </div>
       </div>
     )
   }
@@ -46,8 +37,7 @@ class Accueil extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user,
-    isLoggedIn: state.auth.isLoggedIn
+    user: state.auth.user
   }
 }
 

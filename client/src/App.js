@@ -14,9 +14,9 @@ import {CLIENT_VERSION, REACT_VERSION, SERVER_URL} from './config';
 //import Menu from './Menu'
 
 import {BrowserRouter,Switch,Route } from 'react-router-dom';
+import MainLayoutRoutes from './layouts/MainLayoutRoutes';
 import Login from './pages/Login';
 import Accueil from './pages/Accueil';
-import Etablissement from './pages/Etablissement';
 import Tiers from './pages/Tiers';
 import Demande from './pages/module/execution/Demande';
 import EditDemande from './pages/module/execution/EditDemande';
@@ -59,12 +59,10 @@ class App extends Component {
       <BrowserRouter>
           <Switch>
               <Route exact path="/"  component={Login} />
-              <Route path="/accueil"  render={(props)=><Accueil  /> } />
-              <Route path="/personne"  render={(props)=><Personne  /> } />
-              <Route path="/etablissement"  render={(props)=><Etablissement /> } />
-              <Route path="/tiers"  component={Tiers} />
-              <Route path="/execution/demande"  component={Demande} />
-              <Route path="/execution/newDemande"  component={EditDemande} />
+              <MainLayoutRoutes exact path="/accueil"  component={Accueil} />
+              <MainLayoutRoutes  path="/tiers"  component={Tiers} />
+              <MainLayoutRoutes path="/execution/demande"  component={Demande} />
+              <MainLayoutRoutes  path="/execution/newDemande"  component={EditDemande} />
           </Switch>                   
       </BrowserRouter>
       </div>

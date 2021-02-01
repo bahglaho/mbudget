@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { MenuSource } from '../teleporters/Menu'
 import { connect } from 'react-redux'
 import {loggedOut} from '../stores/actions/auth'
@@ -62,8 +62,8 @@ const Menu1 = (props) => {
                             <a id="dropdownMenu3" href="#/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="nav-link dropdown-toggle"><i className="fas fa-cog"></i> Exécution des dépenses </a>
 
                             <ul aria-labelledby="dropdownMenu3" className="dropdown-menu border-0 shadow">
-                                <li><NavLink to="/execution/demande" exact={true} className="dropdown-item"><i className="fas fa-arrow-alt-circle-right"></i> Procédure Simplifiée  </NavLink></li>
-                                <li><NavLink to="/" exact={true} className="dropdown-item"><i className="fas fa-arrow-alt-circle-right"></i> Procédure Normale </NavLink></li>
+                                <li><Link to="/execution/demande" className="dropdown-item"><i className="fas fa-arrow-alt-circle-right"></i> Procédure Simplifiée  </Link></li>
+                                <li><Link to="/" className="dropdown-item"><i className="fas fa-arrow-alt-circle-right"></i> Procédure Normale </Link></li>
                             </ul>
 
                         </li>

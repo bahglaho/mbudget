@@ -62,13 +62,7 @@ componentDidMount = () => {
 
 
   render() {
-    let isLoggedIn = this.props.isLoggedIn;
-
-    if (!isLoggedIn) { return <Redirect to='/' /> }
     return (
-      <div>
-     <Menu />
-     <SideBar />
       <div className="content-wrapper">
 
         <div className="content-header">
@@ -125,7 +119,7 @@ componentDidMount = () => {
           </div>
         </div>
 
-      </div>
+      
 </div>
     )
   }
@@ -135,8 +129,7 @@ componentDidMount = () => {
 //Lier l'etat global aux props du Component
 const mapStateToProps = (state) => {
   return {
-      user: state.auth.user,
-      isLoggedIn: state.auth.isLoggedIn
+      user: state.auth.user
   }
 }
   

@@ -46,8 +46,7 @@ export default class Personne extends Component {
 
   render() {
     return (
-      <div>
-     <Menu />
+      
       <div className="content-wrapper">
 
         <div className="content-header">
@@ -141,7 +140,7 @@ export default class Personne extends Component {
         </div>
 
       </div>
-</div>
+
     )
   }
 }
